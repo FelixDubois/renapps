@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "210843505954",
+    "project_id": "renappss",
+    "storage_bucket": "renappss.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:210843505954:android:5e5c123aed767e45f4417b",
+        "android_client_info": {
+          "package_name": "com.flxdbs.renapps"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqUX17mwylbUeD_nYk3XVFlXHqo5O_7Fk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
