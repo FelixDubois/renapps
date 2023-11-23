@@ -1,4 +1,4 @@
-package com.example.renapps
+package com.flxdbs.renapps
 
 import io.flutter.embedding.android.FlutterActivity
 

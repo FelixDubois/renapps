@@ -1,16 +1,20 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:renapps/functions/functions.dart';
+import 'package:renapps/main.dart';
 
 class FriendCard extends StatefulWidget {
   const FriendCard(
-      {Key? key,
+      {super.key,
       required this.buque,
       required this.num,
-      required this.progress})
-      : super(key: key);
+      required this.progress,
+      required this.imgUrl});
 
   final String buque;
   final String num;
   final double progress;
+  final String imgUrl;
 
   @override
   State<FriendCard> createState() => _FriendCardState();
@@ -18,13 +22,7 @@ class FriendCard extends StatefulWidget {
 
 class _FriendCardState extends State<FriendCard> {
   Color getColor(double v) {
-    if (v < 0.5) {
-      return Colors.green;
-    } else if (v < 0.8) {
-      return Colors.yellow;
-    } else {
-      return Colors.red;
-    }
+    return getColorFromGradient(gradient, v);
   }
 
   @override
@@ -38,19 +36,26 @@ class _FriendCardState extends State<FriendCard> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-              child: CircleAvatar(
-            radius: 50,
-            backgroundImage: const AssetImage('assets/images/test_photo.jpeg'),
-            child: SizedBox(
-              width: 100,
-              height: 100,
-              child: CircularProgressIndicator(
-                color: getColor(widget.progress),
-                value: widget.progress,
-                strokeWidth: 10,
-              ),
-            ),
-          )),
+              child: CachedNetworkImage(
+                  imageUrl: widget.imgUrl,
+                  imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        child: SizedBox(
+                          width: 100,
+                          height: 100,
+                          child: CircularProgressIndicator(
+                            color: getColor(widget.progress),
+                            value: widget.progress,
+                            strokeWidth: 10,
+                          ),
+                        ),
+                      ))),
           Padding(
             padding: const EdgeInsets.only(top: 10.0),
             child: Text(widget.buque, style: const TextStyle(fontSize: 15)),

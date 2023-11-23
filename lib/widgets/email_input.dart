@@ -4,7 +4,7 @@ final RegExp emailRegexp = RegExp(
     r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
 
 class EmailInput extends StatefulWidget {
-  const EmailInput({Key? key, required this.ctrl}) : super(key: key);
+  const EmailInput({super.key, required this.ctrl});
 
   final TextEditingController ctrl;
 

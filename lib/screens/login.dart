@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:renapps/functions/functions.dart';
+import 'package:renapps/screens/register.dart';
 import 'package:renapps/widgets/password_input.dart';
 import 'package:renapps/widgets/email_input.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  const LoginPage({super.key, required this.app, required this.auth});
+
+  final FirebaseApp app;
+  final FirebaseAuth auth;
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -34,7 +41,35 @@ class _LoginPageState extends State<LoginPage> {
                       PasswordInput(ctrl: passwordController),
                       Padding(
                         padding: const EdgeInsets.only(top: 16.0),
-                        child: LoginButton(formKey: _formKey),
+                        child: ElevatedButton(
+                          child: const Text("Login"),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              login(
+                                  widget.app,
+                                  widget.auth,
+                                  context,
+                                  emailController.text,
+                                  passwordController.text);
+                            }
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16.0),
+                        child: TextButton(
+                          onPressed: () {
+                            moveToPage(
+                                context,
+                                RegisterPage(
+                                    app: widget.app, auth: widget.auth));
+                          },
+                          child: const Text(
+                            "I don't have an account",
+                            style:
+                                TextStyle(decoration: TextDecoration.underline),
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -44,33 +79,6 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class LoginButton extends StatelessWidget {
-  const LoginButton({
-    super.key,
-    required GlobalKey<FormState> formKey,
-  }) : _formKey = formKey;
-
-  final GlobalKey<FormState> _formKey;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      child: const Text("Login"),
-      onPressed: () {
-        if (_formKey.currentState!.validate()) {
-          // print("Email : ${emailController.text} Password : ${passwordController.text}");
-
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Processing Data'),
-            ),
-          );
-        }
-      },
     );
   }
 }

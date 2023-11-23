@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 
 class TextInput extends StatefulWidget {
   const TextInput(
-      {Key? key,
+      {super.key,
       required this.ctrl,
       required this.hint,
-      required this.invalidMessage})
-      : super(key: key);
+      required this.invalidMessage});
 
   final TextEditingController ctrl;
   final String hint;
